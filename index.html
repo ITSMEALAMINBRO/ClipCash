@@ -722,6 +722,98 @@ form input:focus, form select:focus, form textarea:focus{
   background: rgba(255,255,255,0.1);
   color: rgba(255,255,255,0.4);
 } 
+
+
+
+
+/* === Neon Emoji Glow Section === */
+.neon-emoji-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px auto;
+}
+
+.neon-emoji {
+  position: relative;
+  font-size: 72px;
+  line-height: 1;
+  font-family: var(--font-family);
+  z-index: 2;
+  color: var(--text-primary-light);
+  animation: emojiPulse 1.8s ease-in-out infinite;
+  text-shadow:
+    0 0 8px var(--accent),
+    0 0 16px var(--accent),
+    0 0 30px rgba(255,255,255,0.4);
+}
+
+/* রেইনবো রিং */
+.neon-ring {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #ff007a,
+    #ff7a00,
+    #ffd500,
+    #00ff84,
+    #00f0ff,
+    #7a00ff,
+    #ff007a
+  );
+  filter: blur(10px) saturate(140%);
+  animation: ringSpin 6s linear infinite, ringHue 8s linear infinite;
+  -webkit-mask: radial-gradient(circle at center, transparent 46%, black 47%);
+          mask: radial-gradient(circle at center, transparent 46%, black 47%);
+  z-index: 1;
+}
+
+/* হালকা glow এর জন্য ভিতরের রিং */
+.neon-ring::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: inherit;
+  filter: blur(25px) saturate(150%);
+  opacity: 0.8;
+  animation: ringSpin 8s linear reverse infinite, ringHue 10s linear infinite;
+}
+
+/* অ্যানিমেশন */
+@keyframes ringSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes ringHue {
+  from { filter: hue-rotate(0deg) blur(10px) saturate(140%); }
+  to   { filter: hue-rotate(360deg) blur(10px) saturate(140%); }
+}
+
+@keyframes emojiPulse {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow:
+      0 0 8px var(--accent),
+      0 0 16px var(--accent),
+      0 0 30px rgba(255,255,255,0.4);
+  }
+  50% {
+    transform: scale(1.06);
+    text-shadow:
+      0 0 12px var(--secondary-color),
+      0 0 22px var(--secondary-color),
+      0 0 40px rgba(255,255,255,0.6);
+  }
+}
+
     
   </style>
   
@@ -730,9 +822,12 @@ form input:focus, form select:focus, form textarea:focus{
 
     <div id="app-loader">
       <div id="ClipCash-loader">
-              <div class="cash-icon">💸</div>
-    
+<div class="neon-emoji-container">
+  <div class="neon-ring"></div>
+  <div class="neon-emoji">💸</div>
+</div>
         <div class="loader-title">ClipCash<span>🥀🤍</span></div>
+           <div id="lottie-box"></div>
         <p id="loader-text">Preparing ClipCash…</p>
       </div>
       <div id="fallback-bounce" aria-hidden="true">
